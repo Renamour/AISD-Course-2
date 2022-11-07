@@ -1,0 +1,370 @@
+﻿{% load static %}
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>АМИНА ВИТАЛЬЕВНА - ТВОЙ ЛИЧНЫЙ АСТРОЛОГ</title>
+    <link rel="shortcut icon" href="{% static 'content/favicon.png' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>АМИНА ВИТАЛЬЕВНА</title>
+    <style>
+
+        @font-face {
+            font-family: 'FamilyFont';
+            src: url('{% static 'content/familyfont.ttf' %}') format('truetype'); /* Safari, Android, iOS */
+        }
+
+
+        #root {
+            position: absolute;
+            width: 100%;
+            height: 200%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        #root > div {
+            position: absolute;
+            background: white;
+            border-radius: 100%;
+
+            animation: shine infinite alternate;
+        }
+
+        @keyframes shine {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            20% {
+                transform: scale(.9);
+                opacity: .8;
+            }
+
+            40% {
+                transform: scale(1);
+                opacity: .9;
+            }
+
+            40% {
+                transform: scale(.2);
+                opacity: .2;
+            }
+
+            60% {
+                transform: scale(.2);
+                opacity: .1;
+            }
+
+            80% {
+                transform: scale(.5);
+                opacity: .5;
+            }
+
+            100% {
+                transform: scale(.9);
+                opacity: .9;
+            }
+        }
+
+        body {
+            background-color: #340000;
+            background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(52,0,0,1) 100%);
+            font-family: FamilyFont;
+            font-weight: normal;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        img {
+            width: 450px;
+        }
+
+
+        .container {
+            max-width: 1200px;
+        }
+
+
+        .divTable {
+            display: table;
+            width: 100%;
+        }
+
+        .divTableRow {
+            display: table-row;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .divTableHeading {
+            background-color: #EEE;
+            display: table-header-group;
+        }
+
+        .divTableCell, .divTableHead {
+            display: table-cell;
+            padding: 3px 10px;
+        }
+
+        .divTableHeading {
+            background-color: #EEE;
+            display: table-header-group;
+            font-weight: bold;
+        }
+
+        .divTableFoot {
+            background-color: #EEE;
+            display: table-footer-group;
+            font-weight: bold;
+        }
+
+        .divTableBody {
+            display: table-row-group;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+        }
+
+
+        button {
+            border-radius: 50px;
+            background-color: #340000;
+            color: white;
+            padding: 10px;
+            border: 0.2px solid white;
+            transition: 1s;
+        }
+
+        button:hover {
+            background-color: #cccccc;
+            color: #340000;
+            box-shadow: 0px 0px 10px rgba(255,255,255,0.7);
+        }
+
+
+        :root {
+            --radius: 2px;
+            --baseFg: dimgray;
+            --baseBg: white;
+            --accentFg: #006fc2;
+            --accentBg: #bae1ff;
+        }
+
+
+
+        .theme-construction {
+            --radius: 50px;
+            --baseFg: #340000;
+            --baseBg: #340000;
+            --accentFg: #340000;
+            --accentBg: white;
+            --zindex: 10000;
+        }
+
+        select {
+            -webkit-appearance: none;
+            appearance: none;
+            border: 0px solid var(--baseFg);
+            line-height: 20px;
+            outline: 0;
+            padding: 8px 15px;
+            border-radius: var(--radius);
+            background-color: var(--baseBg);
+            position: relative;
+            color: white;
+        }
+
+            select:hover {
+                background-color: white;
+                color: #340000;
+                box-shadow: 0px 0px 10px rgba(255,255,255,0.7);
+                transition: 1s;
+            }
+
+            select:active {
+                border-color: var(--accentFg);
+                background-color: var(--accentFg);
+            }
+
+        a {
+            text-decoration: none;
+            color: white;
+            transition: 1s;
+        }
+
+        a:hover {
+            text-shadow: 0px 0px 15px rgba(255,255,255,0.7);
+        }
+
+
+        @media (max-width: 480px) {
+            .divTableRow
+
+        {
+            display: block;
+        }
+
+        .container {
+            max-width: 400px;
+        }
+
+        .divTableCell, .divTableHead {
+            display: block;
+        }
+
+        button {
+            margin-top: 15px;
+        }
+
+        #root {
+            height: 250%;
+        }
+
+        img {
+            width: 350px;
+        }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script>
+const params = {
+  amount: 500,
+  size: {
+    min: 1,
+    max: 2,
+    giant: 9
+  },
+  duration: {
+    min: 5,
+    max: 25,
+  }
+}
+const randomBetween = (a, b) => {
+  return (a + (Math.random() * (b - a)));
+}
+
+for (let i = 0; i < params.amount; i++) {
+  let star = $("<div></div>");
+  let size = Math.round(Math.random() * 100) === 0 ? params.size.giant : randomBetween(params.size.min, params.size.max);
+  star.css({
+    "width": size + "px",
+    "height": size + "px",
+    "left": randomBetween(0, 100) + "%",
+    "top": randomBetween(0, 100) + "%",
+    "box-shadow": "0 0 " + size + "px " + size / 2 + "px white",
+    "animation-duration": randomBetween(params.duration.min, params.duration.max) + "s"
+  });
+
+  $("#root").append(star);
+}
+    </script>
+    <div class="container">
+
+        <img src="{% static 'content/logo.png' %}">
+        <hr>
+
+        <!-- Секция 1 -->
+        <div class="divTable">
+            <div class="divTableBody">
+                <div class="divTableRow">
+                    <div class="divTableCell">
+                        <h1>АМИНА ВИТАЛЬЕВНА - ТВОЙ ЛИЧНЫЙ АСТРОЛОГ</h1>
+                        <br>Консультации, которые касаются человека и его взаимодействия с другими. Запутались в каком-то вопросе и вам нужно найти ответ? Астрология как рентген позволяет выявить проблему и начать незамедлительно с ней работать.
+                        <br><br>
+                        <select class="theme-construction">
+                            <option>КОЗЕРОГ - 1.000 РУБ</option>
+                            <option disabled="">ВОДОЛЕЙ (ВРЕМЕННО НЕДОСТУПНО)</option>
+                            <option>РЫБЫ - 2.000 РУБ</option>
+                            <option>ОВЕН - 3.000 РУБ</option>
+                            <option>ТЕЛЕЦ - 3.000 РУБ</option>
+                            <option>БЛИЗНЕЦЫ - 2.000 РУБ</option>
+                            <option>РАК - 1.000 РУБ</option>
+                            <option>ЛЕВ - 2.000 РУБ</option>
+                            <option>ДЕВА - 1.000 РУБ</option>
+                            <option selected="">ВЕСЫ - БЕСПЛАТНО!</option>
+                            <option disabled="">СКОРПИОН (ВРЕМЕННО НЕДОСТУПНО)</option>
+                            <option>СТРЕЛЕЦ - 2.000 РУБ</option>
+                        </select>
+                        <a target="_blank" href="https://docs.google.com/forms/d/1vuq0nZVEk9Gr-pgpVRZ4hReNquKfVYpryPK7YpKg_g0/viewform?edit_requested=true"><button>ЗАПИСАТЬСЯ НА КОНСУЛЬТАЦИЮ</button></a>
+                    </div>
+                    <div class="divTableCell"><img src="{% static 'content/av.png' %}"></div>
+                </div>
+            </div>
+        </div>
+        <!-- Секция 2 -->
+        <h1>НЕМНОГО О СЕБЕ</h1>
+        <hr>
+        Родилась в Ульяновске. Учусь на факультете информационных систем и технологий. В свободное от учёбы время провожу за компьютером в познании новой и увлекательной для себя информации. Активно увлекаюсь астрологией. Люблю помогать людям. А астрология, как известно, помогает людям разобраться в судьбе своей, своих близких и своего окружения и я готова вам в этом помочь!
+        <br><br>
+        <!-- Секция 3 -->
+        <h1>МОЯ ВСЕЛЕННАЯ</h1>
+        <hr>
+        <div class="divTable">
+            <div class="divTableBody">
+                <div class="divTableRow">
+                    <div class="divTableCell">На каждого человека влияет не только Солнце, как мы привыкли считать, называя себя Водолеями, Тельцами и т.п., но и еще 9 планет, каждая из которых отвечает за конкретную сторону личности.</div>
+                    <div class="divTableCell">Ниже показана моя натальная карта, из которой вы сможете познакомиться со мной, как с личностью, соответственно вы узнаете чуть больше обо мне. Буду очень рада помочь разобрать (при желании - составить) конкретно вашу натальную карту.</div>
+                </div>
+            </div>
+        </div>
+        <div class="divTable">
+            <div class="divTableBody">
+                <div class="divTableRow">
+                    <div class="divTableCell"><img src="{% static 'content/natal.png' %}"></div>
+                    <div class="divTableCell">
+                        СОЛНЦЕ ☼ ВЕСЫ ♎
+                        24°12 (10 ДОМ)<hr>
+                        ЛУНА ☾ БЛИЗНЕЦЫ ♊
+                        14°27 (7 ДОМ)<hr>
+                        МЕРКУРИЙ ☿ СКОРПИОН ♏
+                        15°41 (11 ДОМ)<hr>
+                        ВЕНЕРА ♀ СКОРПИОН ♏
+                        27°36 (12 ДОМ)<hr>
+                        МАРС ♂ ДЕВА ♍
+                        18°58 (9 ДОМ)<hr>
+                        ЮПИТЕР ♃ БЛИЗНЕЦЫ ♊
+                        10°42 (7 ДОМ) 'R<hr>
+                        САТУРН ♄ ТЕЛЕЦ ♉
+                        29°55 (6 ДОМ) 'R<hr>
+                        УРАН ♅ ВОДОЛЕЙ ♒
+                        16°55 (2 ДОМ) 'R<hr>
+                        НЕПТУН ♆ ВОДОЛЕЙ ♒
+                        3°47 (2 ДОМ)<hr>
+                        ПЛУТОН ♇ СТРЕЛЕЦ ♐
+                        11°01 (1 ДОМ)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <!-- Секция 3 -->
+        <h1>ПОЛЕЗНЫЕ ССЫЛКИ</h1>
+        <hr>
+        <div class="divTable">
+            <div class="divTableBody">
+                <div class="divTableRow">
+                    <div class="divTableCell">
+                        <h1>БЛОК С ПОЛЕЗНЫМИ ССЫЛКАМИ</h1><hr><br><a href="https://geocult.ru/natalnaya-karta-onlayn-raschet">СОСТАВИТЬ НАТАЛЬНУЮ КАРТУ</a><hr><a href="https://www.koob.ru/astrology/">ЛИТЕРАТУРА ПО АСТРОЛОГИИ</a>
+                        <hr>У ВАС ОСТАЛИСЬ ВОПРОСЫ КО МНЕ?
+                        <a target="_blank" href="mailto:mourllen@gmail.com"><button>ПОЖАЛУЙСТА, НАПИШИТЕ МНЕ!</button></a>
+                    </div>
+                    <div class="divTableCell"><img src="{% static 'content/astro.png' %}"></div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <center><img src="{% static 'content/logo.png' %}">
+    </div>
+
+</body>
